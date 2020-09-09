@@ -200,7 +200,7 @@ class Trainer(object):
 
         for idx in range(1):
             print(idx,"/",2000)
-            img_path = '/PATH/TO/TEST/IMAGW'
+            img_path = '/PATH/TO/TEST/IMAGE'
 
             center   = [184, 184]
 
