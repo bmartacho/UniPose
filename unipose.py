@@ -200,7 +200,7 @@ class Trainer(object):
 
         for idx in range(1):
             print(idx,"/",2000)
-            img_path = '/home/bm3768/Desktop/Pose/Posezilla/samples/IMG_2271.jpeg'
+            img_path = '/PATH/TO/TEST/IMAGW'
 
             center   = [184, 184]
 
@@ -248,8 +248,8 @@ class Trainer(object):
 parser = argparse.ArgumentParser()
 parser.add_argument('--pretrained', default=None,type=str, dest='pretrained')
 parser.add_argument('--dataset', type=str, dest='dataset', default='LSP')
-parser.add_argument('--train_dir', default='/home/bm3768/Desktop/Pose/Artacho/dataset/LSP/train/',type=str, dest='train_dir')
-parser.add_argument('--val_dir', type=str, dest='val_dir', default='/home/bm3768/Desktop/Pose/Artacho/dataset/LSP/val/')
+parser.add_argument('--train_dir', default='/PATH/TO/TRAIN',type=str, dest='train_dir')
+parser.add_argument('--val_dir', type=str, dest='val_dir', default='/PATH/TO/LSP/VAL')
 parser.add_argument('--model_name', default=None, type=str)
 parser.add_argument('--model_arch', default='unipose', type=str)
 
