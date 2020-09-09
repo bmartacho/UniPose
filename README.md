@@ -4,7 +4,7 @@
 </p><br />
 
 <p align="center">
-  <img src="https://drive.google.com/uc?id=1_R6slinx-q7YyHwL4M9FScpZOXb5nLXX" title="WASPnet architecture for Semantic Segmentation">
+  <img src="https://doc-08-7o-docs.googleusercontent.com/docs/securesc/q8rj4u2nkp1a2n261q0aj6u9oak6o7sj/n0fvnhu8njdrf7u67gjd3urifufg1p4g/1599682875000/09424846422949311391/01689483091312991032/1_R6slinx-q7YyHwL4M9FScpZOXb5nLXX?authuser=0&nonce=hdhhass1m1g8a&user=01689483091312991032&hash=bph6sd7dhmo7g5i9ida8c64ol0v4tib9" title="WASPnet architecture for Semantic Segmentation">
   Figure 1: WASPnet architecture for Semantic Segmentation.
 </p><br />
 
