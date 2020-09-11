@@ -16,18 +16,18 @@
 <p align="justify">
 We propose UniPose, a unified framework for human pose estimation, based on our "Waterfall" Atrous Spatial Pooling architecture, that achieves state-of-art-results on several pose estimation metrics. UniPose incorporates contextual segmentation and joint localization to estimate the human pose in a single stage, with high accuracy, without relying on statistical postprocessing methods. The Waterfall module in UniPose leverages the efficiency of progressive filtering in the cascade architecture, while maintaining multi-scale fields-of-view comparable to spatial pyramid configurations. Additionally, our method is extended to UniPose-LSTM for multi-frame processing and achieves state-of-the-art results for temporal pose estimation in Video. Our results on multiple datasets demonstrate that UniPose, with a ResNet backbone and Waterfall module, is a robust and efficient architecture for pose estimation obtaining state-of-the-art results in single person pose detection for both single images and videos.
   
-We propose the “Waterfall Atrous Spatial Pyramid” module, shown in Figure 2. WASP is a novel architecture with Atrous Convolutions that is able to leverage both the larger Field-of-View of the Atrous Spatial Pyramid Pooling configuration and the reduced size of the cascade approach.<br />
+We propose the “Waterfall Atrous Spatial Pyramid” module, shown in Figure 3. WASP is a novel architecture with Atrous Convolutions that is able to leverage both the larger Field-of-View of the Atrous Spatial Pyramid Pooling configuration and the reduced size of the cascade approach.<br />
 
 <p align="center">
   <img src="https://www.mdpi.com/sensors/sensors-19-05361/article_deploy/html/images/sensors-19-05361-g006.png" width=500 title="WASP module"><br />
-  Figure 2: WASP Module.
+  Figure 3: WASP Module.
 </p><br />
 
-Examples of the UniPose architecture for Pose Estimation are shown in Figures 3 and 4 for single images and videos, respectively.<br />
+Examples of the UniPose architecture for Pose Estimation are shown in Figures 4 for single images and videos.<br />
 
 <p align="center">
   <img src="https://people.rit.edu/bm3768/images/supplemental.png" width=500 title="WASP module"><br />
-  Figure 3: Pose estimation samples for UniPose in images and videos.
+  Figure 4: Pose estimation samples for UniPose in images and videos.
   <br /><br />
   
 Link to the published article at <a href="https://openaccess.thecvf.com/content_CVPR_2020/html/Artacho_UniPose_Unified_Human_Pose_Estimation_in_Single_Images_and_Videos_CVPR_2020_paper.html">CVPR 2020</a>.
