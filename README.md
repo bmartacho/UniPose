@@ -30,7 +30,7 @@ Examples of the UniPose architecture for Pose Estimation are shown in Figures 3 
   Figure 3: Pose estimation samples for UniPose in images and videos.
   <br /><br />
   
-Link to the published article at CVPR 2020: https://openaccess.thecvf.com/content_CVPR_2020/html/Artacho_UniPose_Unified_Human_Pose_Estimation_in_Single_Images_and_Videos_CVPR_2020_paper.html
+Link to the published article at <a href="https://openaccess.thecvf.com/content_CVPR_2020/html/Artacho_UniPose_Unified_Human_Pose_Estimation_in_Single_Images_and_Videos_CVPR_2020_paper.html">CVPR 2020</a>.
 </p><br />
 
 **Datasets:**
