@@ -5,7 +5,7 @@
 
 <p align="center">
   <img src="https://people.rit.edu/bm3768/images/Unipose_pipeline.png" title="WASPnet architecture for Semantic Segmentation">
-  Figure 1: WASPnet architecture for Semantic Segmentation.
+  Figure 1: UniPose architecture for single frame pose detection. The input color image of dimensions (HxW) is fed through the ResNet backbone and WASP module to obtain 256 feature channels at reduced resolution by a factor of 8. The decoder module generates K heatmaps, one per joint, at the original resolution, and the locations of the joints are determined by a local max operation.
 </p><br />
 
 <p align="justify">
