@@ -8,6 +8,11 @@
   Figure 1: UniPose architecture for single frame pose detection. The input color image of dimensions (HxW) is fed through the ResNet backbone and WASP module to obtain 256 feature channels at reduced resolution by a factor of 8. The decoder module generates K heatmaps, one per joint, at the original resolution, and the locations of the joints are determined by a local max operation.
 </p><br />
 
+<p align="center">
+  <img src="https://people.rit.edu/bm3768/images/Unipose_LSTM.png" title="WASPnet architecture for Semantic Segmentation">
+  Figure 2: UniPose-LSTM architecture for pose estimation in videos. The joint heatmaps from the decoder of UniPose are fed into the LSTM along with the final heatmaps from the previous LSTM state. The convolutional layers following the LSTM reorganize the outputs into the final heatmaps used for joint localization.
+</p><br />
+
 <p align="justify">
 We propose UniPose, a unified framework for human pose estimation, based on our "Waterfall" Atrous Spatial Pooling architecture, that achieves state-of-art-results on several pose estimation metrics. UniPose incorporates contextual segmentation and joint localization to estimate the human pose in a single stage, with high accuracy, without relying on statistical postprocessing methods. The Waterfall module in UniPose leverages the efficiency of progressive filtering in the cascade architecture, while maintaining multi-scale fields-of-view comparable to spatial pyramid configurations. Additionally, our method is extended to UniPose-LSTM for multi-frame processing and achieves state-of-the-art results for temporal pose estimation in Video. Our results on multiple datasets demonstrate that UniPose, with a ResNet backbone and Waterfall module, is a robust and efficient architecture for pose estimation obtaining state-of-the-art results in single person pose detection for both single images and videos.
   
@@ -18,15 +23,12 @@ We propose the “Waterfall Atrous Spatial Pyramid” module, shown in Figure 2.
   Figure 2: WASP Module.
 </p><br />
 
-Examples of the WASPnet architecture for segmentation are shown in Figures 3 and 4 for the PASCAL VOC and Cityscapes datasets, respectively.<br />
+Examples of the UniPose architecture for Pose Estimation are shown in Figures 3 and 4 for single images and videos, respectively.<br />
 
 <p align="center">
-  <img src="https://www.mdpi.com/sensors/sensors-19-05361/article_deploy/html/images/sensors-19-05361-g009.png" width=500 title="WASP module"><br />
-  Figure 3: Segmentation samples for the Pascal VOC dataset.
+  <img src="https://people.rit.edu/bm3768/images/supplemental.png" width=500 title="WASP module"><br />
+  Figure 3: Pose estimation samples for UniPose in images and videos.
   <br /><br />
-  <img src="https://www.mdpi.com/sensors/sensors-19-05361/article_deploy/html/images/sensors-19-05361-g010.png" width=500 title="WASP module"><br />
-  Figure 4: Segmentation samples for the CItyscapes dataset.
-</p><br /><br />
   
 Link to the published article at CVPR 2020: https://openaccess.thecvf.com/content_CVPR_2020/html/Artacho_UniPose_Unified_Human_Pose_Estimation_in_Single_Images_and_Videos_CVPR_2020_paper.html
 </p><br />
