@@ -113,7 +113,7 @@ class mpii(data.Dataset):
 
         variable = self.anno[self.img_List[index]]
         
-        while not os.path.isfile(self.labels_dir + "segmented/" + variable['img_paths'][:-4]+'.png'):
+        while not os.path.isfile(self.labels_dir + variable['img_paths'][:-4]+'.png'):
             index = index - 1
             variable = self.anno[self.img_List[index]]
 
