@@ -1,7 +1,7 @@
 from utils       import lsp_lspet_data       as lsp_lspet_data
 from utils       import mpii_data            as mpii_data
 from utils       import mpii_data            as Mpii
-from utils       import coco_data            as coco_data
+# from utils       import coco_data            as coco_data
 from utils       import penn_action_data     as penn_action
 from utils       import ntid_data            as ntid_data
 from utils       import posetrack_data       as posetrack_data
@@ -261,23 +261,23 @@ def getDataloader(dataset, train_dir, val_dir, test_dir, sigma, stride, workers,
                                             batch_size  = 1, shuffle=True,
                                             num_workers = 1, pin_memory=True)
 
-    elif dataset == 'COCO':
-        train_loader = torch.utils.data.DataLoader(
-                                            coco_data.COCO_Data(True, train_dir, sigma, stride,
-                                            Mytransforms.Compose([Mytransforms.RandomResized(),
-                                            Mytransforms.RandomRotate(40),
-                                            #Mytransforms.RandomCrop(368),
-                                            Mytransforms.SinglePersonCrop(368),
-                                            Mytransforms.RandomHorizontalFlip(),])),
-                                            batch_size  = batch_size, shuffle=True,
-                                            num_workers = workers, pin_memory=True)
+#     elif dataset == 'COCO':
+#         train_loader = torch.utils.data.DataLoader(
+#                                             coco_data.COCO_Data(True, train_dir, sigma, stride,
+#                                             Mytransforms.Compose([Mytransforms.RandomResized(),
+#                                             Mytransforms.RandomRotate(40),
+#                                             #Mytransforms.RandomCrop(368),
+#                                             Mytransforms.SinglePersonCrop(368),
+#                                             Mytransforms.RandomHorizontalFlip(),])),
+#                                             batch_size  = batch_size, shuffle=True,
+#                                             num_workers = workers, pin_memory=True)
     
-        val_loader   = torch.utils.data.DataLoader(
-                                            coco_data.COCO_Data(False, val_dir, sigma, stride,
-                                            Mytransforms.Compose([Mytransforms.TestResized(368),
-                                            Mytransforms.SinglePersonCrop(368),])),
-                                            batch_size  = 1, shuffle=True,
-                                            num_workers = workers, pin_memory=True)
+#         val_loader   = torch.utils.data.DataLoader(
+#                                             coco_data.COCO_Data(False, val_dir, sigma, stride,
+#                                             Mytransforms.Compose([Mytransforms.TestResized(368),
+#                                             Mytransforms.SinglePersonCrop(368),])),
+#                                             batch_size  = 1, shuffle=True,
+#                                             num_workers = workers, pin_memory=True)
 
     elif dataset == 'Penn_Action':
         train_loader = torch.utils.data.DataLoader(
