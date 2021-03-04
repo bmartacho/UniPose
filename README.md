@@ -54,7 +54,7 @@ The pre-trained weights can be downloaded at
 <p align="justify">
 Bruno Artacho:<br />
   E-mail: bmartacho@mail.rit.edu<br />
-  Website: https://people.rit.edu/bm3768<br />
+  Website: https://www.brunoartacho.com<br />
   
 Andreas Savakis:<br />
   E-mail: andreas.savakis@rit.edu<br />
