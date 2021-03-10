@@ -104,7 +104,8 @@ class unipose(nn.Module):
         prevCell[0] = previousCell
 
         if iter == 0:
-            x = torch.cat((input[:,iter,:,:,:], centermap[:,iter,:,:,:]), dim=1)
+#             x = torch.cat((input[:,iter,:,:,:], centermap[:,iter,:,:,:]), dim=1)
+            x = input[:,iter,:,:,:]
 
             x, low_level_feat = self.backbone(x)
             x = self.wasp(x)
@@ -124,8 +125,9 @@ class unipose(nn.Module):
 
 
         else:
-            x = torch.cat((input[:,iter,:,:,:], centermap[:,iter,:,:,:]), dim=1)
-
+#             x = torch.cat((input[:,iter,:,:,:], centermap[:,iter,:,:,:]), dim=1)
+            x = input[:,iter,:,:,:]
+            
             x, low_level_feat = self.backbone(x)
             x = self.wasp(x)
             x = self.decoder(x, low_level_feat)
