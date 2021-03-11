@@ -31,7 +31,11 @@ class unipose(nn.Module):
         if self.stride != 8:
             x = F.interpolate(x, size=(input.size()[2:]), mode='bilinear', align_corners=True)
 
+        # If you are extracting bouding boxes as well
         return x[:,0:self.num_classes+1,:,:], x[:,self.num_classes+1:,:,:] 
+    
+        # If you are only extracting keypoints
+        return x, 0
 
     def freeze_bn(self):
         for m in self.modules():
