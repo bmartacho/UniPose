@@ -65,7 +65,6 @@ class Penn_Action(data.Dataset):
         label      = np.zeros((3, 13, self.seqTrain))
         lms        = np.zeros((1, 3, 13))
         kps        = np.zeros((13 + 5, 3))
-        bbox       = np.zeros((self.seqTrain, 4))
 
         # build data set--------
         label_size = 368
@@ -80,16 +79,8 @@ class Penn_Action(data.Dataset):
             img_paths.append(img_path)
             img = np.array(Image.open(img_path), dtype=np.float32)  # Image
 
-            segmented_path = os.path.join(self.root_dir  + "segmented/" +framespath[-4:],\
-                                               '%06d' % (start_index + i + 1) + '.png')
-
-            bbox_path      = os.path.join(self.root_dir  + "BBOX/" +framespath[-4:],\
-                                               '%06d' % (start_index + i + 1) + '.npy')
-
-
 
             img_path  = self.images_dir + variable['img_paths']
-            segmented = cv2.imread(self.labels_dir + "segmented/" + variable['img_paths'][:-4]+'.png')
             bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
 
             # read label
@@ -133,8 +124,6 @@ class Penn_Action(data.Dataset):
             img = np.array(cv2.resize(cv2.imread(img_path),(368,368)), dtype=np.float32)  # Image
 
             images[i, :, :, :] = transforms.ToTensor()(img)
-
-
 
             centermap = np.zeros((self.height, self.width, 1), dtype=np.float32)
             center_map = guassian_kernel(size_h=self.height, size_w=self.width, center_x=center[0], center_y=center[1], sigma=3)
