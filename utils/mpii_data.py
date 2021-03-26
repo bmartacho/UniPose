@@ -59,8 +59,6 @@ def crop(img, points, center, scale, resolution):
     return new_img, upperLeft, bottomRight, points, center
 
 
-
-
 def guassian_kernel(size_w, size_h, center_x, center_y, sigma):
     gridy, gridx = np.mgrid[0:size_h, 0:size_w]
     D2 = (gridx - center_x) ** 2 + (gridy - center_y) ** 2
@@ -118,7 +116,10 @@ class mpii(data.Dataset):
             variable = self.anno[self.img_List[index]]
 
         img_path  = self.images_dir + variable['img_paths']
-        bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
+        
+        # BBox was added to the labels by the authors to perform additional training and testing, as referred in the paper.
+        # Intentionally left as comment since it is not part of the dataset.
+#         bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
 
         points   = torch.Tensor(variable['joint_self'])
         center   = torch.Tensor(variable['objpos'])
@@ -133,22 +134,22 @@ class mpii(data.Dataset):
         # Single Person
         nParts = points.size(0)
         img    = cv2.imread(img_path)
-        box    = np.zeros((2,2))
+#         box    = np.zeros((2,2))
 
-        for i in range(bbox.shape[0]):
-            if center[0] > bbox[i,0] and center[0] < bbox[i,2] and\
-               center[1] > bbox[i,1] and center[1] < bbox[i,3]:
+#         for i in range(bbox.shape[0]):
+#             if center[0] > bbox[i,0] and center[0] < bbox[i,2] and\
+#                center[1] > bbox[i,1] and center[1] < bbox[i,3]:
 
-               upperLeft   = bbox[i,0:2].astype(int)
-               bottomRight = bbox[i,-2:].astype(int)
-               box = bbox[i,:]
+#                upperLeft   = bbox[i,0:2].astype(int)
+#                bottomRight = bbox[i,-2:].astype(int)
+#                box = bbox[i,:]
 
-               img[:,0:upperLeft[0],:]  = np.ones(img[:,0:upperLeft[0],:].shape) *255
-               img[0:upperLeft[1],:,:]  = np.ones(img[0:upperLeft[1],:,:].shape) *255
-               img[:,bottomRight[0]:,:] = np.ones(img[:,bottomRight[0]:,:].shape)*255
-               img[bottomRight[1]:,:,:] = np.ones(img[bottomRight[1]:,:,:].shape)*255
+#                img[:,0:upperLeft[0],:]  = np.ones(img[:,0:upperLeft[0],:].shape) *255
+#                img[0:upperLeft[1],:,:]  = np.ones(img[0:upperLeft[1],:,:].shape) *255
+#                img[:,bottomRight[0]:,:] = np.ones(img[:,bottomRight[0]:,:].shape)*255
+#                img[bottomRight[1]:,:,:] = np.ones(img[bottomRight[1]:,:,:].shape)*255
 
-               break
+#                break
 
         # img, upperLeft, bottomRight, points, center = crop(img, points, center, scale, [self.height, self.width])
 
