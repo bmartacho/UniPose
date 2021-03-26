@@ -118,7 +118,6 @@ class mpii(data.Dataset):
             variable = self.anno[self.img_List[index]]
 
         img_path  = self.images_dir + variable['img_paths']
-        segmented = cv2.imread(self.labels_dir + "segmented/" + variable['img_paths'][:-4]+'.png')
         bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
 
         points   = torch.Tensor(variable['joint_self'])
@@ -155,15 +154,12 @@ class mpii(data.Dataset):
 
         kpt = points
 
-
         # img, kpt, center = self.transformer(img, points, center)
         if img.shape[0] != 368 or img.shape[1] != 368:
             kpt[:,0] = kpt[:,0] * (368/img.shape[1])
             kpt[:,1] = kpt[:,1] * (368/img.shape[0])
             img = cv2.resize(img,(368,368))
         height, width, _ = img.shape
-
-        # quit()
 
         heatmap = np.zeros((int(height/self.stride), int(width/self.stride), int(len(kpt)+1)), dtype=np.float32)
         for i in range(len(kpt)):
@@ -189,11 +185,7 @@ class mpii(data.Dataset):
         heatmap   = Mytransforms.to_tensor(heatmap)
         centermap = Mytransforms.to_tensor(centermap)
 
-        segmented = Mytransforms.to_tensor(segmented)
-
-        # cv2.imwrite("/home/bm3768/Desktop/Pose/Posezilla/samples/2.png",segmented)
-
-        return img, heatmap, centermap, img_path, orig_img, segmented, box
+        return img, heatmap, centermap, img_path
 
 
     def __len__(self):
