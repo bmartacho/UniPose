@@ -61,7 +61,7 @@ class Penn_Action(data.Dataset):
 
         images     = torch.zeros(self.seqTrain, 3, self.height, self.width)  # [3,368,368]
         centermaps = torch.zeros(self.seqTrain, 1, self.height, self.width)  # [3,368,368]
-        boxes      = torch.zeros(self.seqTrain, 5, self.height, self.width)  # [3,368,368]
+#         boxes      = torch.zeros(self.seqTrain, 5, self.height, self.width)  # [3,368,368]
         label      = np.zeros((3, 13, self.seqTrain))
         lms        = np.zeros((1, 3, 13))
         kps        = np.zeros((13 + 5, 3))
@@ -81,13 +81,16 @@ class Penn_Action(data.Dataset):
 
 
             img_path  = self.images_dir + variable['img_paths']
-            bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
+            
+            # BBox was added to the labels by the authors to perform additional training and testing, as referred in the paper.
+            # Intentionally left as comment since it is not part of the dataset.
+#             bbox      = np.load(self.labels_dir + "BBOX/" + variable['img_paths'][:-4] + '.npy')
 
             # read label
             label[0, :, i] = x[start_index + i]
             label[1, :, i] = y[start_index + i]
             label[2, :, i] = visibility[start_index + i]  # 1 * 13
-            bbox[i, :]       = data['bbox'][start_index + i]  #
+#             bbox[i, :]       = data['bbox'][start_index + i]  #
 
 
             # make the joints not in the figure vis=-1(Do not produce label)
@@ -112,8 +115,6 @@ class Penn_Action(data.Dataset):
             center   = [center_x, center_y]
 
             img, kps, center = self.transform(img, kps, center)
-
-
 
             box  = kps[-5:]
             kpts = kps[:13]
@@ -143,20 +144,20 @@ class Penn_Action(data.Dataset):
                 heat_map[heat_map < 0.0099] = 0
                 heatmap[:, :, k+1] = heat_map
 
-            box_heatmap = np.zeros((368, 368, 5), dtype=np.float32)
-            for k in range(5):
-                # resize from 368 to 46
-                xk = int(box[k][0])
-                yk = int(box[k][1])
-                heat_map = guassian_kernel(size_h=368, size_w=368, center_x=xk, center_y=yk, sigma=self.sigma)
-                heat_map[heat_map > 1] = 1
-                heat_map[heat_map < 0.0099] = 0
-                box_heatmap[:, :, k] = heat_map
+#             box_heatmap = np.zeros((368, 368, 5), dtype=np.float32)
+#             for k in range(5):
+#                 # resize from 368 to 46
+#                 xk = int(box[k][0])
+#                 yk = int(box[k][1])
+#                 heat_map = guassian_kernel(size_h=368, size_w=368, center_x=xk, center_y=yk, sigma=self.sigma)
+#                 heat_map[heat_map > 1] = 1
+#                 heat_map[heat_map < 0.0099] = 0
+#                 box_heatmap[:, :, k] = heat_map
 
             heatmap[:, :, 0] = 1.0 - np.max(heatmap[:, :, 1:], axis=2)  # for background      
 
             label_map[i] = transforms.ToTensor()(heatmap)
-            boxes[i]     = transforms.ToTensor()(box_heatmap)
+#             boxes[i]     = transforms.ToTensor()(box_heatmap)
 
 
         for i in range(self.seqTrain):
@@ -166,7 +167,7 @@ class Penn_Action(data.Dataset):
         label_map[i] = transforms.ToTensor()(heatmap)
 
 
-        return images, label_map, centermaps, img_paths, 0, boxes
+        return images, label_map, centermaps, img_paths#, 0, boxes
 
 
     def isNotOnPlane(self, x, y, width, height):
