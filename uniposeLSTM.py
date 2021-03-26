@@ -103,7 +103,7 @@ class Trainer(object):
         print("Epoch " + str(epoch) + ':') 
         tbar = tqdm(self.train_loader)
 
-        for i, (input, heatmap, centermap, img_path, segmented, box) in enumerate(tbar):
+        for i, (input, heatmap, centermap, img_path) in enumerate(tbar):
             learning_rate = adjust_learning_rate(self.optimizer, self.iters, self.lr, policy='step',
                                                  gamma=self.gamma, step_size=self.step_size)
 
@@ -149,7 +149,7 @@ class Trainer(object):
 
         
         cnt = 0
-        for i, (input, heatmap, centermap, img_path, segmented, box) in enumerate(tbar):
+        for i, (input, heatmap, centermap, img_path) in enumerate(tbar):
        
             cnt += 1
 
