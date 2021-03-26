@@ -100,17 +100,16 @@ class Trainer(object):
         print("Epoch " + str(epoch) + ':') 
         tbar = tqdm(self.train_loader)
 
-        for i, (input, heatmap, centermap, img_path, limbsmap) in enumerate(tbar):
+        for i, (input, heatmap, centermap, img_path) in enumerate(tbar):
             learning_rate = adjust_learning_rate(self.optimizer, self.iters, self.lr, policy='step',
                                                  gamma=self.gamma, step_size=self.step_size)
 
             input_var     =     input.cuda()
             heatmap_var   =    heatmap.cuda()
-            limbs_var     =   limbsmap.cuda()
 
             self.optimizer.zero_grad()
 
-            heat, limbs = self.model(input_var)
+            heat = self.model(input_var)
 
             loss_heat   = self.criterion(heat,  heatmap_var)
 
@@ -139,17 +138,15 @@ class Trainer(object):
         count = np.zeros(self.numClasses+1)
 
         cnt = 0
-        for i, (input, heatmap, centermap, img_path, limbsmap) in enumerate(tbar):
+        for i, (input, heatmap, centermap, img_path) in enumerate(tbar):
 
             cnt += 1
 
             input_var     =      input.cuda()
             heatmap_var   =    heatmap.cuda()
-            limbs_var     =   limbsmap.cuda()
-
             self.optimizer.zero_grad()
 
-            heat, limbs = self.model(input_var)
+            heat = self.model(input_var)
             loss_heat   = self.criterion(heat,  heatmap_var)
 
             loss = loss_heat
@@ -218,7 +215,7 @@ class Trainer(object):
 
             input_var   = img.cuda()
 
-            heat, limbs = self.model(input_var)
+            heat = self.model(input_var)
 
             heat = F.interpolate(heat, size=input_var.size()[2:], mode='bilinear', align_corners=True)
 
