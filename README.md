@@ -51,8 +51,7 @@ The pre-trained weights can be downloaded at
 
 **NEW!: OmniPose: A Multi-Scale Framework for Multi-Person Pose Estimation**
 <p align="justify">
-Our novel framework for multi-person pose estimation achieves State-of-the-Art results in several datasets. The pre-print of our new method, OmniPose, can be found in the following link:
-  <a href="https://arxiv.org/abs/2103.10180">OmniPose Pre-Print</a>.
+Our novel framework for multi-person pose estimation achieves State-of-the-Art results in several datasets. The pre-print of our new method, OmniPose, can be found in the following link: <a href="https://arxiv.org/abs/2103.10180">OmniPose pre-print</a>. Full code for the OmniPose framework is scheduled to be released in the near future.
 </p><br />
 
 
