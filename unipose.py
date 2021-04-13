@@ -9,6 +9,7 @@ import numpy as np
 import cv2
 import math
 sys.path.append("..")
+from utils.utils import get_model_summary
 from utils.utils import adjust_learning_rate as adjust_learning_rate
 from utils.utils import save_checkpoint      as save_checkpoint
 from utils.utils import printAccuracies      as printAccuracies
@@ -92,7 +93,9 @@ class Trainer(object):
         self.bestPCK  = 0
         self.bestPCKh = 0
 
-
+    # Print model summary and metrics
+    dump_input = torch.rand((1, 3, 368, 368]))
+    print(get_model_summary(self.modelmodel, dump_input))
 
     def training(self, epoch):
         train_loss = 0.0
