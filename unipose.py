@@ -270,3 +270,6 @@ trainer = Trainer(args)
 for epoch in range(starter_epoch, epochs):
     trainer.training(epoch)
     trainer.validation(epoch)
+	
+# Uncomment for inference, demo, and samples for the trained model:
+# trainer.test(0)
