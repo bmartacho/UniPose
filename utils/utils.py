@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from utils       import lsp_lspet_data       as lsp_lspet_data
 from utils       import mpii_data            as mpii_data
 from utils       import mpii_data            as Mpii
@@ -708,76 +710,120 @@ def bbox_iou(box1, box2, x1y1x2y2=True):
     return iou
 
 
-# def guassian_kernel_1D(size_w, size_h, center_x, center_y, sigma):
-#     return np.exp(-D2 / 2.0 / sigma / sigma)
+def get_model_summary(model, *input_tensors, item_length=26, verbose=False):
+    """
+    :param model:
+    :param input_tensors:
+    :param item_length:
+    :return:
+    """
 
+    summary = []
 
-# def vectorMaps(key1, key2, height, width, sigma):
-#     if(key1[2]==1.0 and key2[2]==1.0):
-#         points     = [[key2[0:1]], [key1[0:1]]]
-#         vector     = [key2[0] - key1[0], key2[1] - key1[1]]
-#         norm      = np.linalg.norm(vector)
-#         unitVector = vector/norm
+    ModuleDetails = namedtuple(
+        "Layer", ["name", "input_size", "output_size", "num_parameters", "multiply_adds"])
+    hooks = []
+    layer_instances = {}
 
-#         minX = max(int(round(min(key1[1],key2[1]))),0)
-#         minY = max(int(round(min(key1[0],key2[0]))),0)
-#         maxX = min(int(round(max(key1[1],key2[1]))),width)
-#         maxY = min(int(round(max(key1[0],key2[0]))),height)
+    def add_hooks(module):
 
-#         gridY, gridX = np.mgrid[minY:maxY, minX:maxX]
-#         vecX = gridX - key1[1]
-#         vecY = gridY - key1[0]
+        def hook(module, input, output):
+            class_name = str(module.__class__.__name__)
 
-#         distance = np.zeros((height,width), dtype=np.float32)
+            instance_index = 1
+            if class_name not in layer_instances:
+                layer_instances[class_name] = instance_index
+            else:
+                instance_index = layer_instances[class_name] + 1
+                layer_instances[class_name] = instance_index
 
-#         distance[gridY, gridX] = abs((key2[0]-key1[0])*gridX - (key2[1]-key1[1])*gridY + key1[1]*key2[0] - key2[0]*key1[1])/ \
-#                                  math.sqrt((key1[0]-key2[0])**2 + (key2[1]-key1[1])**2)
+            layer_name = class_name + "_" + str(instance_index)
 
-#         vec_map   = np.zeros((height,width), dtype=np.float32)
-#         vectorMap = np.zeros((height,width,1), dtype=np.float32)
-#         vec_map[gridY, gridX]     = np.exp(-distance[gridY, gridX] / (sigma*sigma))
-#         print(vec_map[int(key1[0]), int(key1[1])])
-#         vec_map[vec_map > 1]      = 1
-#         vec_map[vec_map < 0.0099] = 0
-#         vectorMap[:, :, 0]        = vec_map
+            params = 0
 
-#         return vectorMap
+            if class_name.find("Conv") != -1 or class_name.find("BatchNorm") != -1 or \
+               class_name.find("Linear") != -1:
+                for param_ in module.parameters():
+                    params += param_.view(-1).size(0)
 
+            flops = "Not Available"
+            if class_name.find("Conv") != -1 and hasattr(module, "weight"):
+                flops = (
+                    torch.prod(
+                        torch.LongTensor(list(module.weight.data.size()))) *
+                    torch.prod(
+                        torch.LongTensor(list(output.size())[2:]))).item()
+            elif isinstance(module, nn.Linear):
+                flops = (torch.prod(torch.LongTensor(list(output.size()))) \
+                         * input[0].size(1)).item()
 
-# def PAF(kpts, height, width, sigma):
-#     rightAnkle    = kpts[0]
-#     rightKnee     = kpts[1]
-#     rightHip      = kpts[2]
-#     leftHip       = kpts[3]
-#     leftKnee      = kpts[4]
-#     leftAnkle     = kpts[5]
-#     rightWrist    = kpts[6]
-#     rightElbow    = kpts[7]
-#     rightShoulder = kpts[8]
-#     leftShoulder  = kpts[9]
-#     leftElbow     = kpts[10]
-#     leftWrist     = kpts[11]
-#     neck          = kpts[12]
-#     headTop       = kpts[13]
+            if isinstance(input[0], list):
+                input = input[0]
+            if isinstance(output, list):
+                output = output[0]
 
-#     pafs = np.zeros((height,width,2), dtype=np.float32)
+            summary.append(
+                ModuleDetails(
+                    name=layer_name,
+                    input_size=list(input[0].size()),
+                    output_size=list(output.size()),
+                    num_parameters=params,
+                    multiply_adds=flops)
+            )
 
-#     head          = vectorMaps(kpts[13], kpts[12], height, width, sigma)
-#     shoulder      = vectorMaps( kpts[8],  kpts[9], height, width, sigma)
-#     #torso         = vectorMaps([(leftHip[0]+rightHip[0])/2,(leftHip[1]+rightHip[1])/2], kpts[12], height, width, sigma)
-#     rightUpperArm = vectorMaps( kpts[8],  kpts[7], height, width, sigma)
-#     rightForeArm  = vectorMaps( kpts[7],  kpts[6], height, width, sigma)
-#     leftUpperArm  = vectorMaps( kpts[9], kpts[10], height, width, sigma)
-#     leftForeArm   = vectorMaps(kpts[10], kpts[11], height, width, sigma)
-#     rightThigh    = vectorMaps( kpts[2],  kpts[1], height, width, sigma)
-#     rightCalf     = vectorMaps( kpts[1],  kpts[0], height, width, sigma)
-#     leftThigh     = vectorMaps( kpts[3],  kpts[4], height, width, sigma)
-#     leftCalf      = vectorMaps( kpts[4],  kpts[5], height, width, sigma)
+        if not isinstance(module, nn.ModuleList) \
+           and not isinstance(module, nn.Sequential) \
+           and module != model:
+            hooks.append(module.register_forward_hook(hook))
 
+    model.eval()
+    model.apply(add_hooks)
 
+    space_len = item_length
 
-#     pafs[:,:,0] = head[:,:,0]
-#     pafs[:,:,1] = shoulder[:,:,0]
-#     #pafs[:,:,2] = torso
+    model(*input_tensors)
+    for hook in hooks:
+        hook.remove()
 
-#     return pafs
+    details = ''
+    if verbose:
+        details = "Model Summary" + \
+            os.linesep + \
+            "Name{}Input Size{}Output Size{}Parameters{}Multiply Adds (Flops){}".format(
+                ' ' * (space_len - len("Name")),
+                ' ' * (space_len - len("Input Size")),
+                ' ' * (space_len - len("Output Size")),
+                ' ' * (space_len - len("Parameters")),
+                ' ' * (space_len - len("Multiply Adds (Flops)"))) \
+                + os.linesep + '-' * space_len * 5 + os.linesep
+
+    params_sum = 0
+    flops_sum = 0
+    for layer in summary:
+        params_sum += layer.num_parameters
+        if layer.multiply_adds != "Not Available":
+            flops_sum += layer.multiply_adds
+        if verbose:
+            details += "{}{}{}{}{}{}{}{}{}{}".format(
+                layer.name,
+                ' ' * (space_len - len(layer.name)),
+                layer.input_size,
+                ' ' * (space_len - len(str(layer.input_size))),
+                layer.output_size,
+                ' ' * (space_len - len(str(layer.output_size))),
+                layer.num_parameters,
+                ' ' * (space_len - len(str(layer.num_parameters))),
+                layer.multiply_adds,
+                ' ' * (space_len - len(str(layer.multiply_adds)))) \
+                + os.linesep + '-' * space_len * 5 + os.linesep
+
+    details += os.linesep \
+        + "Total Parameters: {:,}".format(params_sum) \
+        + os.linesep + '-' * space_len * 5 + os.linesep
+    details += "Total Multiply Adds (For Convolution and Linear Layers only): {:,} GFLOPs".format(flops_sum/(1024**3)) \
+        + os.linesep + '-' * space_len * 5 + os.linesep
+    details += "Number of Layers" + os.linesep
+    for layer in layer_instances:
+        details += "{} : {} layers   ".format(layer, layer_instances[layer])
+
+    return details
