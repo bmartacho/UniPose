@@ -44,7 +44,7 @@ Datasets used in this paper and required for training, validation, and testing c
 
 **Pre-trained Models:**
 <p align="justify">
-The pre-trained weights can be downloaded at
+The pre-trained weights can be downloaded
   <a href="https://drive.google.com/drive/folders/1dPc7AayY2Pi3gjUURgozkuvlab5Vr-9n?usp=sharing">here</a>.
 </p><br />
 
