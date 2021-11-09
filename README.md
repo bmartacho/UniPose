@@ -51,7 +51,7 @@ The pre-trained weights can be downloaded
 
 **NEW!: UniPose+: A unified framework for 2D and 3D human pose estimation in images and videos**
 <p align="justify">
-Our novel and improved UniPose+ framework for pose estimation achieves State-of-the-Art results in several datasets. UniPose+ can be found in the following link: <a href="https://www.computer.org/csdl/journal/tp/5555/01/09599531/1yeC9DHjMw8">UniPose+ PAMI</a>. Full code for the UniPose+ framework is scheduled to be released in the near future.
+Our novel and improved UniPose+ framework for pose estimation achieves State-of-the-Art results in several datasets. UniPose+ can be found in the following link: <a href="https://www.computer.org/csdl/journal/tp/5555/01/09599531/1yeC9DHjMw8">UniPose+ at PAMI</a>. Full code for the UniPose+ framework is scheduled to be released in the near future.
 </p><br />
 
 **NEW!: OmniPose: A Multi-Scale Framework for Multi-Person Pose Estimation**
