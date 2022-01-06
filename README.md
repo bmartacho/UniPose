@@ -3,6 +3,21 @@
   <a href="https://openaccess.thecvf.com/content_CVPR_2020/html/Artacho_UniPose_Unified_Human_Pose_Estimation_in_Single_Images_and_Videos_CVPR_2020_paper.html">**UniPose: Unified Human Pose Estimation in Single Images and Videos**</a>.
 </p><br />
 
+**NEW!: BAPose: Bottom-Up Pose Estimation with Disentangled Waterfall Representations**
+<p align="justify">
+Our novel framework for bottom-up multi-person pose estimation achieves State-of-the-Art results in several datasets. The pre-print of our new method, BAPose, can be found in the following link: <a href="https://arxiv.org/abs/2112.10716">BAPose pre-print</a>. Full code for the BAPose framework is scheduled to be released in the near future.
+</p><br />
+
+**NEW!: UniPose+: A unified framework for 2D and 3D human pose estimation in images and videos**
+<p align="justify">
+Our novel and improved UniPose+ framework for pose estimation achieves State-of-the-Art results in several datasets. UniPose+ can be found in the following link: <a href="https://www.computer.org/csdl/journal/tp/5555/01/09599531/1yeC9DHjMw8">UniPose+ at PAMI</a>. Full code for the UniPose+ framework is scheduled to be released in the near future.
+</p><br />
+
+**NEW!: OmniPose: A Multi-Scale Framework for Multi-Person Pose Estimation**
+<p align="justify">
+Our novel framework for multi-person pose estimation achieves State-of-the-Art results in several datasets. The pre-print of our new method, OmniPose, can be found in the following link: <a href="https://arxiv.org/abs/2103.10180">OmniPose pre-print</a>. Full code for the OmniPose framework is scheduled to be released in the near future.
+</p><br />
+
 <p align="center">
   <img src="https://people.rit.edu/bm3768/images/Unipose_pipeline.png" title="WASPnet architecture for Semantic Segmentation">
   Figure 1: UniPose architecture for single frame pose detection. The input color image of dimensions (HxW) is fed through the ResNet backbone and WASP module to obtain 256 feature channels at reduced resolution by a factor of 8. The decoder module generates K heatmaps, one per joint, at the original resolution, and the locations of the joints are determined by a local max operation.
@@ -46,17 +61,6 @@ Datasets used in this paper and required for training, validation, and testing c
 <p align="justify">
 The pre-trained weights can be downloaded
   <a href="https://drive.google.com/drive/folders/1dPc7AayY2Pi3gjUURgozkuvlab5Vr-9n?usp=sharing">here</a>.
-</p><br />
-
-
-**NEW!: UniPose+: A unified framework for 2D and 3D human pose estimation in images and videos**
-<p align="justify">
-Our novel and improved UniPose+ framework for pose estimation achieves State-of-the-Art results in several datasets. UniPose+ can be found in the following link: <a href="https://www.computer.org/csdl/journal/tp/5555/01/09599531/1yeC9DHjMw8">UniPose+ at PAMI</a>. Full code for the UniPose+ framework is scheduled to be released in the near future.
-</p><br />
-
-**NEW!: OmniPose: A Multi-Scale Framework for Multi-Person Pose Estimation**
-<p align="justify">
-Our novel framework for multi-person pose estimation achieves State-of-the-Art results in several datasets. The pre-print of our new method, OmniPose, can be found in the following link: <a href="https://arxiv.org/abs/2103.10180">OmniPose pre-print</a>. Full code for the OmniPose framework is scheduled to be released in the near future.
 </p><br />
 
 
