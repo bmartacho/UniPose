@@ -34,7 +34,7 @@ We propose UniPose, a unified framework for human pose estimation, based on our 
 We propose the “Waterfall Atrous Spatial Pyramid” module, shown in Figure 3. WASP is a novel architecture with Atrous Convolutions that is able to leverage both the larger Field-of-View of the Atrous Spatial Pyramid Pooling configuration and the reduced size of the cascade approach.<br />
 
 <p align="center">
-  <img src="https://www.mdpi.com/sensors/sensors-19-05361/article_deploy/html/images/sensors-19-05361-g006.png" width=500 title="WASP module"><br />
+  <img src="https://www.mdpi.com/sensors/sensors-19-05361/article_deploy/html/images/sensors-19-05361-g006-550.jpg" width=500 title="WASP module"><br />
   Figure 3: WASP Module.
 </p><br />
 
